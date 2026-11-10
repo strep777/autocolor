@@ -1,0 +1,308 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 14% 96%;
+    --foreground: 240 6% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 6% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 6% 10%;
+    --primary: 211 100% 52%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 6% 93%;
+    --secondary-foreground: 240 6% 14%;
+    --muted: 240 6% 93%;
+    --muted-foreground: 240 4% 44%;
+    --accent: 211 100% 96%;
+    --accent-foreground: 211 100% 38%;
+    --destructive: 4 86% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 6% 89%;
+    --input: 240 6% 87%;
+    --ring: 211 100% 52%;
+    --radius: 0.75rem;
+    --sidebar: 240 12% 98%;
+    --toolbar: 240 14% 97%;
+  }
+
+  .dark {
+    --background: 240 6% 9%;
+    --foreground: 0 0% 96%;
+    --card: 240 5% 13%;
+    --card-foreground: 0 0% 96%;
+    --popover: 240 5% 14%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 211 100% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 4% 18%;
+    --secondary-foreground: 0 0% 94%;
+    --muted: 240 4% 18%;
+    --muted-foreground: 240 5% 64%;
+    --accent: 211 55% 20%;
+    --accent-foreground: 211 100% 82%;
+    --destructive: 4 90% 62%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 4% 22%;
+    --input: 240 4% 24%;
+    --ring: 211 100% 58%;
+    --sidebar: 240 6% 11%;
+    --toolbar: 240 6% 10%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: 'cv11', 'ss01';
+    overscroll-behavior-y: none;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.22);
+  }
+
+  *:focus-visible {
+    outline: 2px solid hsl(var(--ring) / 0.7);
+    outline-offset: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.28);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.45);
+    background-clip: content-box;
+  }
+
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+@layer components {
+  .glass {
+    background: hsl(var(--card) / 0.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+  }
+
+  .glass-sidebar {
+    background: hsl(var(--sidebar) / 0.78);
+    backdrop-filter: saturate(180%) blur(24px);
+    -webkit-backdrop-filter: saturate(180%) blur(24px);
+  }
+
+  .toolbar {
+    background: hsl(var(--toolbar) / 0.82);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+  }
+
+  .drag-region {
+    -webkit-app-region: drag;
+  }
+  .no-drag {
+    -webkit-app-region: no-drag;
+  }
+
+  .traffic-light {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.14);
+  }
+
+  .card-surface {
+    @apply rounded-xl border border-border/70 bg-card shadow-mac;
+  }
+
+  .hairline {
+    box-shadow: inset 0 0 0 0.5px hsl(var(--border));
+  }
+
+  .hover-lift {
+    transition:
+      transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.22s ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 2px 6px rgba(0, 0, 0, 0.05),
+      0 18px 40px -18px rgba(0, 0, 0, 0.25);
+  }
+
+  .kbd {
+    @apply inline-flex h-5 min-w-5 items-center justify-center rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground;
+  }
+
+  .checkerboard {
+    background-image:
+      linear-gradient(45deg, hsl(var(--muted)) 25%, transparent 25%),
+      linear-gradient(-45deg, hsl(var(--muted)) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, hsl(var(--muted)) 75%),
+      linear-gradient(-45deg, transparent 75%, hsl(var(--muted)) 75%);
+    background-size: 16px 16px;
+    background-position:
+      0 0,
+      0 8px,
+      8px -8px,
+      -8px 0;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* ---------- intro.js macOS theme ---------- */
+.introjs-overlay {
+  background: #000 !important;
+  opacity: 0.45 !important;
+  backdrop-filter: blur(1px);
+}
+
+.introjs-helperLayer {
+  border-radius: 14px !important;
+  box-shadow:
+    0 0 0 9999px transparent,
+    0 0 0 1px hsl(var(--primary) / 0.5),
+    0 12px 40px -8px rgba(0, 0, 0, 0.4) !important;
+}
+
+.introjs-tooltip {
+  border-radius: 16px !important;
+  border: 1px solid hsl(var(--border)) !important;
+  background: hsl(var(--card)) !important;
+  color: hsl(var(--foreground)) !important;
+  box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.35) !important;
+  font-family: inherit !important;
+  max-width: 380px;
+  padding: 20px !important;
+}
+
+.introjs-tooltip-title {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px !important;
+}
+
+.introjs-tooltiptext {
+  font-size: 13px !important;
+  line-height: 1.65 !important;
+  color: hsl(var(--muted-foreground)) !important;
+}
+
+.introjs-tooltipbuttons {
+  border-top: 1px solid hsl(var(--border)) !important;
+  padding-top: 14px !important;
+  margin-top: 14px !important;
+}
+
+.introjs-button {
+  border-radius: 8px !important;
+  border: 1px solid hsl(var(--border)) !important;
+  background: hsl(var(--secondary)) !important;
+  color: hsl(var(--foreground)) !important;
+  text-shadow: none !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 6px 12px !important;
+  box-shadow: none !important;
+}
+
+.introjs-button:hover,
+.introjs-button:focus {
+  background: hsl(var(--muted)) !important;
+  border-color: hsl(var(--border)) !important;
+  box-shadow: none !important;
+}
+
+.introjs-button.introjs-nextbutton,
+.introjs-button.introjs-donebutton {
+  background: #0a84ff !important;
+  border-color: #0a84ff !important;
+  color: #fff !important;
+}
+
+.introjs-button.introjs-nextbutton:hover,
+.introjs-button.introjs-nextbutton:focus,
+.introjs-button.introjs-donebutton:hover,
+.introjs-button.introjs-donebutton:focus {
+  background: #0071e3 !important;
+  border-color: #0071e3 !important;
+  color: #fff !important;
+}
+
+.introjs-button.introjs-disabled,
+.introjs-button.introjs-disabled:hover,
+.introjs-button.introjs-disabled:focus {
+  background: hsl(var(--secondary)) !important;
+  border-color: hsl(var(--border)) !important;
+  color: hsl(var(--muted-foreground)) !important;
+  opacity: 0.45 !important;
+  cursor: default !important;
+  box-shadow: none !important;
+}
+
+.introjs-skipbutton {
+  color: hsl(var(--muted-foreground)) !important;
+  font-size: 12px !important;
+  padding: 4px 8px !important;
+}
+
+.introjs-bullets ul li a.active {
+  background: hsl(var(--primary)) !important;
+}
+
+.introjs-bullets ul li a {
+  background: hsl(var(--muted-foreground) / 0.3) !important;
+}
+
+.introjs-arrow {
+  display: none !important;
+}
+
+.introjs-helperNumberLayer {
+  background: hsl(var(--primary)) !important;
+  border: 2px solid hsl(var(--card)) !important;
+  box-shadow: none !important;
+  font-family: inherit !important;
+  font-size: 11px !important;
+  width: 22px !important;
+  height: 22px !important;
+  line-height: 18px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

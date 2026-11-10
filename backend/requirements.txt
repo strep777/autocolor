@@ -1,0 +1,12 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+sqlalchemy==2.0.36
+# Pin greenlet: newer builds have no cp39 Windows wheel and compile from source
+greenlet==3.1.1
+pydantic==2.10.4
+pydantic-settings==2.7.0
+python-multipart==0.0.20
+# 41.0.7 is the newest release whose Rust extension loads on Windows + Python 3.9.1
+cryptography==41.0.7
+httpx==0.28.1
+Pillow==10.4.0

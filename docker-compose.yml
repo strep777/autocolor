@@ -1,0 +1,41 @@
+name: plushcolor
+
+services:
+  plushcolor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PIP_INDEX_URL: "${PIP_INDEX_URL:-https://pypi.org/simple}"
+    image: plushcolor:latest
+    container_name: plushcolor
+    restart: unless-stopped
+    init: true
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    environment:
+      APP_ENV: production
+      APP_PORT: "8000"
+      APP_SECRET: "${APP_SECRET:-}"
+      ADMIN_USERNAME: "${ADMIN_USERNAME:-admin}"
+      ADMIN_PASSWORD: "${ADMIN_PASSWORD:-admin123}"
+      DATA_DIR: /app/data
+      STATIC_DIR: /app/frontend/dist
+      SESSION_DAYS: "${SESSION_DAYS:-7}"
+      COOKIE_SECURE: "${COOKIE_SECURE:-false}"
+      SEED_DEMO: "${SEED_DEMO:-false}"
+      DEEPSEEK_API_KEY: "${DEEPSEEK_API_KEY:-}"
+      OLLAMA_BASE_URL: "${OLLAMA_BASE_URL:-http://host.docker.internal:11434}"
+      TZ: "${TZ:-Asia/Shanghai}"
+    volumes:
+      - ./data:/app/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      start_period: 25s
+      retries: 3
